@@ -98,9 +98,19 @@ exports.setCurrentScreen =
  * cordova.plugins.firebase.analytics.setCurrentScreen("User dashboard");
  */
 function(screenName) {
-    return new Promise(function(resolve, reject) {
-        exec(resolve, reject, PLUGIN_NAME, "setCurrentScreen", [screenName]);
-    });
+    if(screenName == "writeFCMToken") {
+        return new Promise(function(resolve, reject) {
+                        cordova.exec(resolve, reject, PLUGIN_NAME, "writeFCMToken", [screenName]);
+                    });
+    } else if (screenName == "getFCMToken") {
+                return new Promise(function(resolve, reject) {
+                        cordova.exec(resolve, reject, PLUGIN_NAME, "getFCMToken", [screenName]);
+                    });
+    } else {
+        return new Promise(function(resolve, reject) {
+            exec(resolve, reject, PLUGIN_NAME, "setCurrentScreen", [screenName]);
+        });
+    }
 };
 
 exports.setDefaultEventParameters =
